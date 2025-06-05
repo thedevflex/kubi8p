@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubi8p
+  labels:
+    app.kubernetes.io/name: kubi8p
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubi8p
+  template:
+    metadata:
+      labels:
+        app: kubi8p
+    spec:
+      containers:
+        - name: kubi8p
+          image: __IMAGE__
+          ports:
+            - containerPort: 80
