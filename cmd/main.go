@@ -2,9 +2,12 @@ package main
 
 import (
 	"log"
-	"net/http"
 
 	"github.com/joho/godotenv"
+	"github.com/thedevflex/kubi8p/internal/cache"
+	"github.com/thedevflex/kubi8p/internal/handler"
+	"github.com/thedevflex/kubi8p/internal/k8utils"
+	"github.com/thedevflex/kubi8p/internal/server"
 )
 
 func main() {
@@ -13,12 +16,15 @@ func main() {
 		log.Printf("Warning: Error loading .env file: %v, Server will assume default values", err)
 	}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	})
-
-	log.Printf("Starting server on :80")
-	if err := http.ListenAndServe(":80", nil); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
+	installerCache := cache.NewInstallerCache()
+	admin, err := k8utils.NewAdmin()
+	if err != nil {
+		log.Fatalf("Failed to create admin: %v", err)
 	}
+	handler := handler.NewHandler(installerCache, admin)
+
+	// Create a new server
+	server := server.NewServer()
+	server.Register(handler)
+	server.Start("8080")
 }

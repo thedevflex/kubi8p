@@ -1,0 +1,62 @@
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #0f0;
+}
+
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-bottom: none;
+  margin-right: 5px;
+  border-radius: 4px 4px 0 0;
+  background-color: #000;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.tab.active {
+  background-color: #001500;
+  border-color: #0f0;
+  border-bottom-color: #001500;
+  margin-bottom: -1px;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+  border: 1px solid #0f0;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  background-color: rgba(0, 21, 0, 0.3);
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.coming-soon {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.coming-soon h2 {
+  color: #0f0;
+  margin-bottom: 20px;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.coming-soon p {
+  color: #0f0;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.8;
+}
+
+.github-container {
+  padding: 20px;
+  border-left: 1px solid #0f0;
+}

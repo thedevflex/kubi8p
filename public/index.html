@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubi8p</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- add javascript -->
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="installer-container">
+      <h1>Kubi8p</h1>
+      <div class="form-group">
+        <div class="radio-group">
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="new-db"
+              name="db-type"
+              value="new"
+              checked
+            />
+            <label for="new-db">Spin a new database inside Kubernetes</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="external-db"
+              name="db-type"
+              value="external"
+            />
+            <label for="external-db">Use external database</label>
+          </div>
+        </div>
+
+        <div id="external-db-section" class="form-section">
+          <div class="form-group">
+            <label for="connection-type">Connection Type:</label>
+            <select id="connection-type">
+              <option value="secret">Kubernetes Secret Reference</option>
+              <option value="string">Connection String</option>
+            </select>
+          </div>
+
+          <div id="secret-section" class="form-section active">
+            <div class="form-group">
+              <label for="secret-name">Secret Name:</label>
+              <input type="text" id="secret-name" placeholder="my-db-secret" />
+            </div>
+            <div class="form-group">
+              <label for="secret-path">Secret JSON Path:</label>
+              <input
+                type="text"
+                id="secret-path"
+                placeholder=".data.<secret>"
+              />
+            </div>
+          </div>
+
+          <div id="string-section" class="form-section">
+            <div class="form-group">
+              <label for="connection-string">Connection String:</label>
+              <input
+                type="text"
+                id="connection-string"
+                placeholder="postgresql://user:pass@host:port/db"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-message" id="error-message"></div>
+      <button id="next-button">Next</button>
+    </div>
+  </body>
+</html>

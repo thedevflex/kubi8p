@@ -1,9 +1,96 @@
+# -----------------------------------------------------------------------------
+# 🚀 ServiceAccount for Installer
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: kubi8p
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kubi8p
+    app.kubernetes.io/part-of: kubi8al
+
+---
+# -----------------------------------------------------------------------------
+# 🔐 ClusterRole - Grants permissions across the entire cluster
+# -----------------------------------------------------------------------------
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: kubi8p-cluster-role
+  labels:
+    app.kubernetes.io/name: kubi8p
+    app.kubernetes.io/part-of: kubi8al
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets", "namespaces"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"] # Note we only edit/delete secrets that are created by us or has our label `kubi8p.io/managed: "true"`
+
+---
+# -----------------------------------------------------------------------------
+# 🔗 ClusterRoleBinding - Binds the above ClusterRole to our ServiceAccount
+# -----------------------------------------------------------------------------
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: kubi8p-cluster-binding
+  labels:
+    app.kubernetes.io/name: kubi8p
+    app.kubernetes.io/part-of: kubi8al
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kubi8p-cluster-role
+subjects:
+  - kind: ServiceAccount
+    name: kubi8p
+    namespace: default
+
+---
+# -----------------------------------------------------------------------------
+# 🌐 Service - Exposes the installer pod inside the cluster
+# -----------------------------------------------------------------------------
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubi8p
+  namespace: default
+  labels:
+    app.kubernetes.io/name: kubi8p
+    app.kubernetes.io/part-of: kubi8al
+spec:
+  selector:
+    app: kubi8p
+  ports:
+    - port: 80
+      targetPort: 8080
+
+---
+# -----------------------------------------------------------------------------
+# 📦 Deployment - Runs the installer UI/API backend
+# -----------------------------------------------------------------------------
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kubi8p
+  namespace: default
+  annotations:
+    kubi8al.io/installer: "true"
+    kubi8al.io/managed-by: "kubi8p"
   labels:
     app.kubernetes.io/name: kubi8p
+    app.kubernetes.io/instance: installer
+    app.kubernetes.io/part-of: kubi8al
+    app.kubernetes.io/managed-by: kubi8p
 spec:
   replicas: 1
   selector:
@@ -13,9 +100,17 @@ spec:
     metadata:
       labels:
         app: kubi8p
+        app.kubernetes.io/name: kubi8p
+        app.kubernetes.io/part-of: kubi8al
     spec:
+      serviceAccountName: kubi8p
       containers:
-        - name: kubi8p
+        - name: installer
           image: __IMAGE__
           ports:
-            - containerPort: 80
+            - containerPort: 8080
+          env:
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
