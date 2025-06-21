@@ -10,6 +10,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/thedevflex/kubi8p/internal/cache"
+	"github.com/thedevflex/kubi8p/internal/constants"
 )
 
 func (h *Handler) InitiateDB(w http.ResponseWriter, r *http.Request) {
@@ -67,7 +68,7 @@ func (h *Handler) CreatePostgresDeployment() error {
 		},
 	}
 
-	return h.admin.NewDeployment("kubi8al-db", map[string]string{"app": "kubi8al"}).Default().SetSpec(postgresSpec).Apply()
+	return h.admin.NewDeployment(constants.Kubi8alDBName, map[string]string{"app": constants.Kubi8alDBName}).Default().SetSpec(postgresSpec).Apply()
 }
 
 func int32Ptr(i int32) *int32 {

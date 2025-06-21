@@ -19,7 +19,31 @@
 
       <div id="github-content" class="tab-content active">
         <div class="github-container">
-          <!-- GitHub setup content will go here -->
+          <h2>GitHub Webhook Configuration</h2>
+
+          <div class="form-group">
+            <label for="webhook-secret">Webhook Secret (Optional)</label>
+            <input
+              type="text"
+              id="webhook-secret"
+              name="webhook-secret"
+              placeholder="Enter webhook secret"
+            />
+            <div class="info-message">
+              <p>
+                <strong>Note:</strong> All Kubi8p webhooks should use the same
+                secret for consistency.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="error-message"
+            id="error-message"
+            style="display: none"
+          ></div>
+
+          <button id="next-button" class="btn btn-primary">Next</button>
         </div>
       </div>
 

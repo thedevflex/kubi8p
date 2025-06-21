@@ -21,8 +21,9 @@ func (a *Admin) NewDeployment(name string, labels map[string]string) *Deployment
 		admin: a,
 		deployment: &appsv1.Deployment{
 			ObjectMeta: metav1.ObjectMeta{
-				Name:   name,
-				Labels: labels,
+				Name:      name,
+				Labels:    labels,
+				Namespace: a.namespace,
 			},
 		},
 	}

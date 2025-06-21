@@ -15,6 +15,7 @@ func (s *Server) addApiRoutes(handler *handler.Handler) {
 	})
 	// Add your API sub-routes here
 	s.api.HandleFunc("/initiate-db", handler.InitiateDB)
+	s.api.HandleFunc("/initiate-webhook", handler.InitiateWebhook)
 	// for rest return not found
 	s.api.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusNotFound)
