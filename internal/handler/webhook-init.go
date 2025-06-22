@@ -9,16 +9,19 @@ import (
 )
 
 func (h *Handler) InitiateWebhook(w http.ResponseWriter, r *http.Request) {
-	webhook := kubi8al.NewWebhook(h.admin)
+
 	var payload struct {
 		WebhookSecret string `json:"webhook_secret"`
 	}
+
+	kubi8al.WithPort(8080)(h.webhook)
+
 	if err := json.NewDecoder(r.Body).Decode(&payload); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		log.Println("Error decoding webhook secret:", err)
 		return
 	}
-	err := webhook.CreateWebhookDeployment(kubi8al.WebhookDeploymentEnvStruct{
+	err := h.webhook.CreateWebhookDeployment(kubi8al.WebhookDeploymentEnvStruct{
 		WEBHOOK_SECRET: payload.WebhookSecret,
 	})
 	if err != nil {
@@ -26,7 +29,7 @@ func (h *Handler) InitiateWebhook(w http.ResponseWriter, r *http.Request) {
 		log.Println("Error creating webhook deployment:", err)
 		return
 	}
-	err = webhook.CreateWebhookService()
+	err = h.webhook.CreateWebhookService()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Println("Error creating webhook service:", err)

@@ -8,8 +8,15 @@ const (
 
 	// Webhook
 	Kubi8alWebhookName       = "kubi8al-webhook"
-	Kubi8alWebhookVersion    = "v2.0.0"
+	Kubi8alWebhookTag        = "v2.0.0"
 	Kubi8alWebhookPackgeName = "ghcr.io/thedevflex/kubi8al-webhook"
+	Kubi8alWebhookNodePort   = 30020
+
+	// DNS
+	Kubi8alDNSName       = "kubi8al-dns"
+	Kubi8alDNSTag        = "v0.0.2"
+	Kubi8alDNSPackgeName = "ghcr.io/thedevflex/kubi8al-dns"
+	Kubi8alDNSNodePort   = 30021
 
 	// Kubi8al
 	Kubi8alVersion    = "v1.0.0"

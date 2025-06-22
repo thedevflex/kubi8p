@@ -15,9 +15,15 @@ type DBConnectionPayload struct {
 	ConnectionString string `json:"connectionString" validate:"omitempty,required_if=ConnectionType string"`
 }
 
+type DNSPayload struct {
+	Prefix string `json:"prefix" validate:"required"`
+	Domain string `json:"domain" validate:"required"`
+}
+
 type InstallerCache struct {
-	mutex     sync.RWMutex
-	dbPayload DBConnectionPayload
+	mutex      sync.RWMutex
+	dbPayload  DBConnectionPayload
+	dnsPayload DNSPayload
 }
 
 func NewInstallerCache() *InstallerCache {
@@ -51,4 +57,33 @@ func (c *InstallerCache) validateDBConnectionPayload(payload DBConnectionPayload
 		return false, err
 	}
 	return true, nil
+}
+
+func (c *InstallerCache) validateDNSPayload(payload DNSPayload) (bool, error) {
+	validate := validator.New()
+	err := validate.Struct(payload)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (c *InstallerCache) GetDNSPayload() DNSPayload {
+	c.mutex.RLock()
+	defer c.mutex.RUnlock()
+	return c.dnsPayload
+}
+
+func (c *InstallerCache) SetDNSPayload(payload DNSPayload) error {
+
+	if ok, err := c.validateDNSPayload(payload); !ok {
+		log.Printf("Invalid DNS payload: %v", err)
+		return err
+	}
+
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
+	c.dnsPayload = payload
+
+	return nil
 }

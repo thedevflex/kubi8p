@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubi8p DNS Configure</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="installer-container">
+      <h1>Kubi8p DNS Configure</h1>
+
+      <div class="dns-container">
+        <h2>DNS Configuration</h2>
+
+        <div class="info-message">
+          <p>
+            <strong>Note:</strong> Configure your DNS settings to enable
+            wildcard subdomain routing.
+          </p>
+        </div>
+
+        <div
+          class="status-container"
+          id="status-container"
+          style="display: none"
+        >
+          <div class="status-message" id="status-message"></div>
+          <div
+            class="loading-spinner"
+            id="loading-spinner"
+            style="display: none"
+          >
+            <div class="spinner"></div>
+            <p>Loading DNS information...</p>
+          </div>
+        </div>
+
+        <div
+          class="error-message"
+          id="error-message"
+          style="display: none"
+        ></div>
+
+        <div
+          class="url-input-container"
+          id="url-input-container"
+          style="display: none"
+        >
+          <label for="url-preview">Your DNS Service URL:</label>
+          <div class="url-input-group">
+            <input
+              type="text"
+              id="url-prefix"
+              value="https://--KUBI8AL-MANAGED--."
+              disabled
+              class="url-input url-prefix"
+            />
+            <input
+              type="text"
+              id="subdomain"
+              placeholder="subdomain"
+              class="url-input url-subdomain"
+            />
+            <input
+              type="text"
+              id="domain"
+              placeholder="yourdomain.com"
+              class="url-input url-domain"
+            />
+          </div>
+        </div>
+
+        <div
+          class="cname-instruction"
+          id="cname-instruction"
+          style="display: none"
+        >
+          <h3>DNS Configuration Instructions</h3>
+          <div class="instruction-box">
+            <p><strong>Add this CNAME record in your DNS manager:</strong></p>
+            <div class="cname-record">
+              <span class="cname-label">Name:</span>
+              <span class="cname-value" id="cname-name"
+                >*.<span id="cname-subdomain"></span
+              ></span>
+            </div>
+            <div class="cname-record">
+              <span class="cname-label">Value:</span>
+              <span class="cname-value" id="cname-value"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button
+            id="configure-button"
+            class="btn btn-primary"
+            style="display: none"
+          >
+            OK
+          </button>
+          <button
+            id="verify-button"
+            class="btn btn-secondary"
+            style="display: none"
+          >
+            Verify Integration
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

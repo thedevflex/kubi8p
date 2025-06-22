@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kubi8p DNS Setup</title>
+    <link rel="stylesheet" href="../../style.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <div class="installer-container">
+      <h1>Kubi8p DNS Setup</h1>
+
+      <div class="dns-container">
+        <h2>DNS Configuration</h2>
+
+        <div class="info-message">
+          <p>
+            <strong>Note:</strong> This will create a DNS service in your
+            Kubernetes cluster that will handle DNS resolution for your
+            applications.
+          </p>
+        </div>
+
+        <div
+          class="status-container"
+          id="status-container"
+          style="display: none"
+        >
+          <div class="status-message" id="status-message"></div>
+          <div
+            class="loading-spinner"
+            id="loading-spinner"
+            style="display: none"
+          >
+            <div class="spinner"></div>
+            <p>Configuring DNS service...</p>
+          </div>
+        </div>
+
+        <div
+          class="error-message"
+          id="error-message"
+          style="display: none"
+        ></div>
+
+        <button id="initiate-button" class="btn btn-primary">
+          Initiate DNS Configuration
+        </button>
+        <button
+          id="check-again-button"
+          class="btn btn-secondary"
+          style="display: none"
+        >
+          Check Again
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

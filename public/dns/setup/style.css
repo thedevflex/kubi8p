@@ -1,0 +1,66 @@
+.dns-container {
+  padding: 20px;
+  border-left: 1px solid #0f0;
+}
+
+.status-container {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background-color: rgba(0, 21, 0, 0.3);
+}
+
+.status-message {
+  color: #0f0;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #0f0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 255, 0, 0.3);
+  border-top: 3px solid #0f0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner p {
+  margin: 0;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.btn-secondary {
+  background-color: #001500;
+  border: 1px solid #0f0;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.btn-secondary:hover {
+  background-color: #002500;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}

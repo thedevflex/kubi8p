@@ -1,0 +1,191 @@
+.dns-container {
+  padding: 20px;
+  border-left: 1px solid #0f0;
+}
+
+.status-container {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background-color: rgba(0, 21, 0, 0.3);
+}
+
+.status-message {
+  color: #0f0;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.loading-spinner {
+  text-align: center;
+  color: #0f0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 255, 0, 0.3);
+  border-top: 3px solid #0f0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner p {
+  margin: 0;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.url-input-container {
+  margin: 20px 0;
+}
+
+.url-input-container label {
+  display: block;
+  color: #0f0;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.url-input-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0;
+}
+
+.url-input {
+  padding: 12px;
+  border: 1px solid #0f0;
+  background-color: #001500;
+  color: #0f0;
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.url-input:focus {
+  box-shadow: 0 0 10px #0f0;
+  background-color: #002500;
+}
+
+.url-input:disabled {
+  background-color: #000;
+  color: #666;
+  border-color: #333;
+  cursor: not-allowed;
+}
+
+.url-prefix {
+  border-radius: 4px 0 0 4px;
+  min-width: 80px;
+}
+
+.url-subdomain {
+  border-left: none;
+  border-right: none;
+  min-width: 120px;
+}
+
+.url-domain {
+  border-radius: 0 4px 4px 0;
+  min-width: 150px;
+}
+
+.cname-instruction {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background-color: rgba(0, 21, 0, 0.3);
+}
+
+.cname-instruction h3 {
+  color: #0f0;
+  margin-bottom: 15px;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.instruction-box {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #0f0;
+}
+
+.instruction-box p {
+  color: #0f0;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.cname-record {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.cname-label {
+  color: #0f0;
+  font-weight: bold;
+  min-width: 60px;
+  margin-right: 10px;
+}
+
+.cname-value {
+  color: #0f0;
+  font-family: "Courier New", monospace;
+  background-color: rgba(0, 21, 0, 0.5);
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid #0f0;
+  font-weight: bold;
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+}
+
+.btn-secondary {
+  background-color: #001500;
+  border: 1px solid #0f0;
+  color: #0f0;
+  text-shadow: 0 0 5px #0f0;
+}
+
+.btn-secondary:hover {
+  background-color: #002500;
+  box-shadow: 0 0 10px #0f0;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.success-message {
+  color: #0f0;
+  text-align: center;
+  padding: 15px;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background-color: rgba(0, 21, 0, 0.3);
+  margin: 20px 0;
+}

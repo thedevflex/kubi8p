@@ -14,10 +14,24 @@ import (
 
 type Webhook struct {
 	admin *k8utils.Admin
+	port  int32
 }
 
-func NewWebhook(admin *k8utils.Admin) *Webhook {
-	return &Webhook{admin: admin}
+func NewWebhook(admin *k8utils.Admin, port ...int32) *Webhook {
+	webhookPort := int32(8080)
+	if len(port) > 0 {
+		webhookPort = port[0]
+	}
+	return &Webhook{
+		admin: admin,
+		port:  webhookPort,
+	}
+}
+
+func WithPort(port int32) func(*Webhook) {
+	return func(w *Webhook) {
+		w.port = port
+	}
 }
 
 func (w *Webhook) CreateWebhookService() error {
@@ -31,8 +45,9 @@ func (w *Webhook) CreateWebhookService() error {
 		Ports: []corev1.ServicePort{
 			{
 				Port:       80,
-				TargetPort: intstr.FromInt(8080),
+				TargetPort: intstr.FromInt(int(w.port)),
 				Protocol:   corev1.ProtocolTCP,
+				NodePort:   constants.Kubi8alWebhookNodePort,
 			},
 		},
 	}).Apply()
@@ -45,8 +60,14 @@ type WebhookDeploymentEnvStruct struct {
 }
 
 func (w *Webhook) CreateWebhookDeployment(env WebhookDeploymentEnvStruct) error {
+	if env.WEBHOOK_PORT != "" {
+		port, err := strconv.Atoi(env.WEBHOOK_PORT)
+		if err != nil {
+			return err
+		}
+		w.port = int32(port)
+	}
 
-	containerPort := 8080
 	envs := []corev1.EnvVar{
 		{
 			Name:  "EMMITER_API_ADDRESS",
@@ -56,14 +77,10 @@ func (w *Webhook) CreateWebhookDeployment(env WebhookDeploymentEnvStruct) error 
 			Name:  "WEBHOOK_SECRET",
 			Value: env.WEBHOOK_SECRET,
 		},
-	}
-
-	if env.WEBHOOK_PORT != "" {
-		envs = append(envs, corev1.EnvVar{
+		{
 			Name:  "WEBHOOK_PORT",
-			Value: env.WEBHOOK_PORT,
-		})
-		containerPort, _ = strconv.Atoi(env.WEBHOOK_PORT)
+			Value: strconv.Itoa(int(w.port)),
+		},
 	}
 
 	err := w.admin.NewDeployment(constants.Kubi8alWebhookName, map[string]string{
@@ -85,10 +102,10 @@ func (w *Webhook) CreateWebhookDeployment(env WebhookDeploymentEnvStruct) error 
 				Containers: []corev1.Container{
 					{
 						Name:  "webhook",
-						Image: constants.Kubi8alWebhookPackgeName + ":" + constants.Kubi8alWebhookVersion,
+						Image: constants.Kubi8alWebhookPackgeName + ":" + constants.Kubi8alWebhookTag,
 						Ports: []corev1.ContainerPort{
 							{
-								ContainerPort: int32(containerPort),
+								ContainerPort: w.port,
 							},
 						},
 						Env: envs,
