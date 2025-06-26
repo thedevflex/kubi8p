@@ -14,7 +14,7 @@ const (
 
 	// DNS
 	Kubi8alDNSName       = "kubi8al-dns"
-	Kubi8alDNSTag        = "v0.0.2"
+	Kubi8alDNSTag        = "v1.0.0"
 	Kubi8alDNSPackgeName = "ghcr.io/thedevflex/kubi8al-dns"
 	Kubi8alDNSNodePort   = 30021
 
