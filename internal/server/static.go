@@ -15,8 +15,9 @@ func (s *Server) addStaticRoutes() {
 			path = "/index.html"
 		}
 
+		publicDir := os.Getenv("PUBLIC_DIR")
 		// Construct the file path
-		filePath := filepath.Join("public", path)
+		filePath := filepath.Join(publicDir, path)
 
 		// Check if file exists
 		if _, err := os.Stat(filePath); os.IsNotExist(err) {
