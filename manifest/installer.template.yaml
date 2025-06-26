@@ -114,5 +114,3 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
-            - name: PUBLIC_DIR
-              value: /app/public

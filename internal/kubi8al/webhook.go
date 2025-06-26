@@ -47,7 +47,6 @@ func (w *Webhook) CreateWebhookService() error {
 				Port:       80,
 				TargetPort: intstr.FromInt(int(w.port)),
 				Protocol:   corev1.ProtocolTCP,
-				NodePort:   constants.Kubi8alWebhookNodePort,
 			},
 		},
 	}).Apply()

@@ -35,7 +35,6 @@ func (d *DNS) CreateDNSService() error {
 				Port:       80,
 				TargetPort: intstr.FromInt(int(port)),
 				Protocol:   corev1.ProtocolTCP,
-				NodePort:   constants.Kubi8alDNSNodePort,
 			},
 		},
 	}).Apply()

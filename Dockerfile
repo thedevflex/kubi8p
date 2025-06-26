@@ -14,4 +14,6 @@ RUN apk add --no-cache ca-certificates
 COPY --from=builder /app/kubi8p /usr/local/bin/kubi8p
 COPY --from=builder /app/public /app/public
 
+ENV PUBLIC_DIR=/app/public
+
 ENTRYPOINT ["/usr/local/bin/kubi8p"]
