@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o kubi8p ./cmd/main.go
 FROM alpine:3.19
 RUN apk add --no-cache ca-certificates
 
-COPY --from=builder /app/kubi8p /usr/local/bin/kubi8p
+COPY --from=builder /app/kubi8p /app/kubi8p
 COPY --from=builder /app/public /app/public
 
-ENTRYPOINT ["/usr/local/bin/kubi8p"]
+ENTRYPOINT ["/app/kubi8p"]
